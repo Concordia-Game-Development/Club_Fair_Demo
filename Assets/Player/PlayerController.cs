@@ -10,12 +10,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpSpeed = 100;
     [SerializeField] float fallGravity = 10;
 
+
+    Transform cameraT;
     bool jumping = false;   
     Rigidbody2D rb;
     Animator animator;
     SpriteRenderer sr;
     void Start()
     {
+        cameraT = Camera.main.transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();  
         sr = GetComponent<SpriteRenderer>();
@@ -62,6 +65,8 @@ public class PlayerController : MonoBehaviour
             {
                 sr.flipX = !sr.flipX;
             }
+            
+            cameraT.position = new Vector3(transform.position.x, cameraT.position.y , cameraT.position.z);
 
         }
         else
