@@ -20,7 +20,10 @@ public class Player : MonoBehaviour
         controller = GetComponent<PlayerController>();
         speedSlider.onValueChanged.AddListener((v) => { controller.speed = v; });
         jumpSlider.onValueChanged.AddListener((j) => { controller.jumpSpeed = j; });
-        scaleSlider.onValueChanged.AddListener((s) => { transform.localScale = Vector3.one * s; });
+        scaleSlider.onValueChanged.AddListener((s) => { 
+            transform.localScale = Vector3.one * s;
+            _camera.orthographicSize = 4 + s;
+        });
     }
     bool crossed = false;
     [SerializeField] GameObject finishImage;
@@ -41,8 +44,11 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            controller.respawn(-1);
             
+            controller.respawn(-1);
+            transform.localScale = Vector3.one;
+            scaleSlider.value = 1;
+
         }
 
         if (Input.GetKeyDown(KeyCode.T))

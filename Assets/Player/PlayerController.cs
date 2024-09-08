@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
         if (position == -1) position = currentCheckpoint;
         transform.position = respawnPoints[position].position;
         rb.velocity = Vector3.zero;
+        
     }
 
     public void Kill()
