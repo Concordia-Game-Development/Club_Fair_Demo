@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(PlayerController))]
+[RequireComponent(typeof(PlayerController))]
 public class Player : MonoBehaviour
 {
-
+    
     PlayerController controller;
     void Start()
     {
-        controller = GetComponent<PlayerController> ();
+        
+        controller = GetComponent<PlayerController>();
+        
     }
 
     // Update is called once per frame
@@ -18,6 +20,13 @@ public class Player : MonoBehaviour
 
         float x_dir = Input.GetAxisRaw("Horizontal");
         bool jump = Input.GetKeyDown(KeyCode.Space);
-        controller.Move(x_dir,jump);
+        controller.Move(x_dir, jump);
+
+        if (transform.position.y <= -6)
+        {
+            controller.Kill();
+        }
+        
     }
+
 }
