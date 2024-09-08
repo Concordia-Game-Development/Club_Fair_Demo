@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
         if (transform.position.x > 130 && !crossed)
         {
             crossed = true;
-            finishImage.SetActive(true);
+            StartCoroutine(FinishImage());
             StartCoroutine(MakeBigger());
         }
     }
@@ -66,6 +66,19 @@ public class Player : MonoBehaviour
             transform.localScale += Vector3.one * Time.deltaTime;
             yield return null;
         }
+    }
+
+    IEnumerator FinishImage()
+    {
+        float currentTime = Time.time;
+        finishImage.SetActive(true);
+        while (Time.time < currentTime + 5)
+        {
+            yield return null;
+        }
+        finishImage.SetActive(false);
+        yield return null;
+
     }
 
 }

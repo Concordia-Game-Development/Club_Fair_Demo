@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     {
         if (jumping)
         {
-            print(rb.velocity);
             animator.SetBool("jumping", true);
             animator.SetFloat("jumpV", rb.velocity.y);
 
@@ -74,7 +73,6 @@ public class PlayerController : MonoBehaviour
 
             if (currentCheckpoint < respawnPoints.Count-1    &&  transform.position.x > respawnPoints[currentCheckpoint+1].position.x)
             {
-                print("NEW CHECKPOINT");
                 currentCheckpoint++;
             }
 

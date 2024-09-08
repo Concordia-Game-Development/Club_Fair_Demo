@@ -27,7 +27,7 @@ public class StartPlayer : MonoBehaviour
             Destroy(helpMe);
             this.enabled = false;
         }
-        print(Time.time + " " + stopTime + " " + walkTime);
+        
 
 
         if (Time.time < stopTime)
