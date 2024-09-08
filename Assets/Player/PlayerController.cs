@@ -6,8 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float speed = 100;
-    [SerializeField] float jumpSpeed = 100;
+    public float speed = 100;
+    public  float jumpSpeed = 100;
     [SerializeField] float fallGravity = 10;
     [SerializeField] List<Transform> respawnPoints;
 
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
 
     int currentCheckpoint = 0;
-    Transform cameraT;
+    
     bool jumping = false;
     Rigidbody2D rb;
     Animator animator;
@@ -23,8 +23,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
-        cameraT = Camera.main.transform;
-        RepositionCamera();
+        
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
@@ -73,7 +72,6 @@ public class PlayerController : MonoBehaviour
             }
 
 
-            RepositionCamera();
             if (currentCheckpoint < respawnPoints.Count-1    &&  transform.position.x > respawnPoints[currentCheckpoint+1].position.x)
             {
                 print("NEW CHECKPOINT");
@@ -96,11 +94,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void respawn(int position)
+    public void respawn(int position = -1)
     {
-        
+        if (position == -1) position = currentCheckpoint;
         transform.position = respawnPoints[position].position;
-        RepositionCamera();
+        rb.velocity = Vector3.zero;
     }
 
     public void Kill()
@@ -108,11 +106,6 @@ public class PlayerController : MonoBehaviour
         respawn(currentCheckpoint);
     }
 
-    void RepositionCamera()
-    {
-        //cameraT.position = new Vector3(transform.position.x, cameraT.position.y, cameraT.position.z);
-        //cameraT.position = new Vector3(transform.position.x, transform.position.y, cameraT.position.z);
-    }
 
     
 }
