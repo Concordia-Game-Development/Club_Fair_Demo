@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+
+    //Public so that values can be get and set by slider in Player.cs
     public float speed = 100;
     public  float jumpSpeed = 100;
     [SerializeField] float fallGravity = 10;
@@ -13,17 +14,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] LayerMask wall;
 
+    private int currentCheckpoint = 0;
+    private bool jumping = false;
+    //Ray distance to check if walking into wall
+    //Prevents jittering, sweet spot 0.75f
+    private float wallDist = 0.75f;
 
-    int currentCheckpoint = 0;
-    
-    bool jumping = false;
     Rigidbody2D rb;
     Animator animator;
     SpriteRenderer sr;
     void Start()
-    {
-
-        
+    {    
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
@@ -80,12 +81,18 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            
             animator.SetBool("walking", false);
         }
 
     }
 
-    float wallDist = 0.75f;
+    public void MoveBool(bool b)
+    {
+        animator.SetBool("walking", b);
+    }
+
+    
     bool CheckForWall(Vector2 direction)
     {
         return Physics2D.Raycast(transform.position, direction, wallDist, wall);
@@ -104,7 +111,4 @@ public class PlayerController : MonoBehaviour
     {
         respawn(currentCheckpoint);
     }
-
-
-    
 }

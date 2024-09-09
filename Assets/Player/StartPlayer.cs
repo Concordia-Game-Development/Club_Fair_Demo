@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 [RequireComponent(typeof(PlayerController))]
 public class StartPlayer : MonoBehaviour
 {
+
+    //This script is only used to make the player walk and ask for help at the start of game
+    //Gets disabled after first input from kb or mouse
     [SerializeField] GameObject helpMe;
     PlayerController controller;
 
@@ -55,6 +56,7 @@ public class StartPlayer : MonoBehaviour
             walkDir *= -1;
             walkTime = Time.time + 5;
             stopTime = Time.time+1;
+            controller.MoveBool(false);
         }
     }
 
